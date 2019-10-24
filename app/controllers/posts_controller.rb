@@ -5,9 +5,14 @@ class PostsController < ApplicationController
     end
 
     def new
+      @post = Post.new
+
     end
 
     def create
+      #CURRENTLY WORKING IN HERE
+      # post = Post.create(post_params)
+      # redirect_to post
     end
 
     private
@@ -18,5 +23,13 @@ class PostsController < ApplicationController
         flash[:danger] = "Please log in."
         redirect_to login_url
       end
+    end
+
+    def set_user
+      @post = Post.find(params[:id])
+    end
+
+    def post_params
+      params.require(:post).permit(:name, :content)
     end
 end
