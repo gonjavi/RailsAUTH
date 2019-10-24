@@ -25,7 +25,8 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    log_in @user
+    remember @user
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -60,6 +61,15 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  # Logs in the given user.
+  def log_in(user)
+    session[:user_id] = user.id
+  end
+  def remember(user)
+    user.remember
+    cookies.permanent.signed[:user_id] = user.id
+    cookies.permanent[:remember_token] = user.remember_token
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -69,6 +79,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :, :, :, :)
+      params.require(:user).permit(:name, :email, :password)
     end
+
 end
