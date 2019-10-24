@@ -1,0 +1,15 @@
+linters:
+  rubocop:
+    fixer: true
+    display_cop_names: true
+
+fixers:
+  enable: true
+  
+files:
+  ignore:
+    - "bin/*"
+    - "db/*"
+    - "config/*"
+    - "Guardfile"
+    - "Rakefile"
