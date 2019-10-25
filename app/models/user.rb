@@ -1,6 +1,7 @@
 class User < ApplicationRecord
     attr_accessor :remember_token, :activation_token
     has_many :posts
+    accepts_nested_attributes_for :posts
 
     before_create :create_activation_digest
     

@@ -2,17 +2,26 @@ class PostsController < ApplicationController
     before_action :logged_in_user, only: [:new, :create]
 
     def index
+      @user = current_user
+      @posts = params[:user_id].nil? ? Post.all_posts : @user.posts.all_posts
     end
 
     def new
-      @post = Post.new
-
+      @post = @user.posts.build
     end
 
     def create
-      #CURRENTLY WORKING IN HERE
-      # post = Post.create(post_params)
-      # redirect_to post
+      @user =  current_user
+      @post = @user.posts.new(post_params)
+     if @post.save        
+        redirect_to post_path
+      else
+        flash.now[:danger] = 'Post was not created'
+        render 'new'
+      end
+    end
+
+    def show
     end
 
     private
@@ -30,6 +39,10 @@ class PostsController < ApplicationController
     end
 
     def post_params
+    
+      #params = {user_id: current_user.id}
       params.require(:post).permit(:name, :content)
+      
+      
     end
 end

@@ -2,9 +2,7 @@ class SessionsController < ApplicationController
 
     def new
     end
-   #def before_create
-    #  self.remember_token = User.new_token
-    #end
+   
     def create
       user = User.find_by(email: params[:session][:email].downcase)
       if user && user.authenticate(params[:session][:password])

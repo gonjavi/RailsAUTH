@@ -2,15 +2,14 @@
 <html>
   <head>
     <title>Authapp</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= render 'layouts/rails_default'%>
+      <%= render 'layouts/shim' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <%= render 'layouts/header' %>
     <%= yield %>
+    
   </body>
 </html>
