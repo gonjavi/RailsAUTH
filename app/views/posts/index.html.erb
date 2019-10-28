@@ -1,12 +1,18 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Posts</h1>
+<% if logged_in? %>
+  <h2>Hi <%= current_user.name %></h2>
+<% end %>
 
 <table>
   <thead>
     <tr>
       <th>Name</th>
       <th>Content</th>
+      <% if logged_in? %>
+        <th>Author</th>
+      <% end %>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -16,6 +22,9 @@
       <tr>
         <td><%= post.name %></td>
         <td><%= post.content %></td>
+        <% if logged_in? %>
+          <td><%= post.user.name %></td>
+        <% end %>
         <td><%= link_to 'Show', post %></td>
         <td><%= link_to 'Edit', edit_post_path(post) %></td>
         <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
