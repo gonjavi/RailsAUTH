@@ -1,13 +1,15 @@
 class PostsController < ApplicationController
-    before_action :logged_in_user, only: [:new, :create]
+    before_action :logged_in_user, only: [:new, :create, :edit]
 
     def index
-      #@posts = Post.where(user_id: params[current_user.id])
       @posts = Post.all
     end
 
     def new
       @post = Post.new
+    end
+
+    def edit
     end
 
     def create
@@ -22,6 +24,12 @@ class PostsController < ApplicationController
     end
 
     def show
+    end
+
+    def destroy
+      Post.find(params[:id]).destroy
+      flash[:success] = "User deleted"
+      redirect_to posts_path
     end
 
     private
@@ -39,10 +47,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-    
-      #params = {user_id: current_user.id}
       params.require(:post).permit(:name, :content)
-      
-      
     end
 end

@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
+  get 'authentications/home'
   resources :users
   get 'sessions/new'
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
-  #get    '/post',   to: 'posts#new'
-  #post   '/post',   to: 'posts#create'
-  #get '/posts',  to: 'posts#index'
-  root 'sessions#new'
+  get '/signup',      to: 'users#new', as: 'signup'
+  root 'authentications#home'
   resources :posts 
 end

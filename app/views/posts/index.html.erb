@@ -1,39 +1,51 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Posts</h1>
-<% if logged_in? %>
-  <h2>Hi <%= current_user.name %></h2>
-<% end %>
-
-<table>
-  <thead>
-  
-    <tr>
-      <th>Name</th>
-      <th>Content</th>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center mt-4">
+      <h1>Posts</h1>
+    </div>
+    <div class="col-12 text-center mt-4">
       <% if logged_in? %>
-        <th>Author</th>
+        <h4>Hi <%= current_user.name %></h4>
       <% end %>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    </div>
 
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.name %></td>
-        <td><%= post.content %></td>
-        <% if logged_in? %>
-          <td><%= post.user.name %></td>
+    
+    <table class="table col-12 text-center">
+      <thead class="thead-dark">
+      
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Content</th>
+          <% if logged_in? %>
+            <th>Author</th>
+          <% end %>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <td><%= post.name %></td>
+            <td><%= post.content %></td>
+            <% if logged_in? %>
+              <td><%= post.user.name %></td>
+            <% end %>
+            <td><%= link_to 'Show', post %></td>
+            <td><%= link_to 'Edit', edit_post_path(post) %></td>
+            <% if current_user == post.user %>
+              <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <%end%>
+          </tr>
         <% end %>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
 
-<br>
-
-<%= link_to 'New Post', new_post_path %>
+    <br>
+    <div class="col-12 text-center">
+    <%= link_to 'New Post', new_post_path, class: "btn btn-primary mt-3" %>
+    </div>
+  </div>
+</div>
