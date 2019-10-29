@@ -1,22 +1,32 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <nav>
-      <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
-             <li><%= link_to "Users", users_path %></li>
-          <li class="dropdown">
-            
-            <ul class="dropdown-menu">
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out", logout_path, method: :delete %>
-              </li>
-            </ul>
-          </li>
-        <% else %>
-          <li><%= link_to "Log in", login_path %></li>
-        <% end %>
-      </ul>
-    </nav>
+
+<nav class="navbar navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Secret Post App</a>
+    </div>
+
+    <form class="form-inline">
+    <% if logged_in? %>
+
+    <a class="btn btn-outline-primary disabled" href="/posts" role="button">
+      Hi <%= current_user.name %>
+    </a>
+    <div style="padding-left: 10px;">
+
+      <%= link_to "Log out", logout_path, method: :delete , :class => "btn btn-outline-danger"%>
+    </div>
+    <% else%>
+
+    <a class="btn btn-outline-primary" href="/login" role="button">
+    Login
+    </a>
+    <div style="padding-left: 10px;">
+      <a class="btn btn-outline-success" href="/users/new " role="button">
+      Sign Up
+      </a>
+    </div>
+    <% end %>
+
+    </form>
   </div>
-</header>
+</nav>

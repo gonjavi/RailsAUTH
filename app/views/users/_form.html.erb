@@ -1,4 +1,5 @@
-<%= form_with(model: user, local: true) do |form| %>
+
+<%= form_with(model: user, local: true , :class => "form") do |form| %>
   <% if user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -11,22 +12,26 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group text-left">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name , :class => "form-control"%>
   </div>
 
-  <div class="field">
+  <div class="form-group text-left">
     <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%= form.text_field :email , :class => "form-control"%>
   </div>
 
-  <div class="field">
+  <div class="form-group text-left">
     <%= form.label :password %>
-    <%= form.text_field :password %>
+    <%= form.text_field :password, :class => "form-control" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :class => "btn btn-success mt-2"%>
   </div>
 <% end %>
+
+
+
+
