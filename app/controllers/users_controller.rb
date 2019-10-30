@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: %i[show edit update destroy]
 
   # GET /users
   # GET /users.json
@@ -9,16 +11,14 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  def show
-  end
+  def show; end
 
   # GET /users/new
   def new
     @user = User.new
   end
 
-  def edit
-  end
+  def edit; end
 
   # POST /users
   # POST /users.json
@@ -60,10 +60,12 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
   # Logs in the given user.
   def log_in(user)
     session[:user_id] = user.id
   end
+
   def remember(user)
     user.remember
     cookies.permanent.signed[:user_id] = user.id
@@ -71,14 +73,14 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :email, :password)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :email, :password)
+  end
 end
