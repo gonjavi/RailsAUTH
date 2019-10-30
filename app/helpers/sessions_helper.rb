@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 
 module SessionsHelper
   def log_in(user)
@@ -8,7 +7,7 @@ module SessionsHelper
   def remember(user)
     user.remember
     cookies.permanent.signed[:user_id] = user.id
-    cookies.permanent[:remember_token] = user.remember_token
+    cookies.permanent[:remember_tokenn] = user.remember_tokenn
   end
 
   def current_user
@@ -16,29 +15,28 @@ module SessionsHelper
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
-      if user&.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(cookies[:remember_tokenn])
         log_in user
         @current_user = user
-        end
+      end
     end
   end
 
   def logged_in?
-    !@current_user.nil?
+    !current_user.nil?
   end
 
   def forget(user)
     user.forget
     cookies.delete(:user_id)
-    cookies.delete(:remember_token)
+    cookies.delete(:remember_tokenn)
   end
 
   def log_out
+    forget(current_user)
     session.delete(:user_id)
     @current_user = nil
   end
 
-  def store_location
-    session[:forwarding_url] = request.original_url if request.get?
-  end
+ 
 end
