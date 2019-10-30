@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 module SessionsHelper
   def log_in(user)
@@ -15,7 +16,7 @@ module SessionsHelper
       @current_user ||= User.find_by(id: user_id)
     elsif (user_id = cookies.signed[:user_id])
       user = User.find_by(id: user_id)
-      if user && user.authenticated?(cookies[:remember_tokenn])
+      if user&.authenticated?(cookies[:remember_tokenn])
         log_in user
         @current_user = user
       end
@@ -37,6 +38,4 @@ module SessionsHelper
     session.delete(:user_id)
     @current_user = nil
   end
-
- 
 end

@@ -1,4 +1,4 @@
-
+# frozen_string_literal: true
 
 class User < ApplicationRecord
   attr_accessor :remember_tokenn, :activation_token
@@ -14,7 +14,6 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 3 }
 
-  
   def self.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                 BCrypt::Engine.cost
@@ -32,11 +31,11 @@ class User < ApplicationRecord
 
   def authenticated?(remember_tokenn)
     return false if remember_token.nil?
+
     BCrypt::Password.new(remember_token).is_password?(remember_tokenn)
   end
 
   def forget
     update_attribute(:remember_token, nil)
   end
-  
 end
