@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Authapp</title>
+      <%= render 'layouts/rails_default'%>
+      <%= render 'layouts/shim' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render 'layouts/header' %>
+    <%= yield %>
+    
+  </body>
+</html>
