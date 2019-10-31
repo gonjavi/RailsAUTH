@@ -15,11 +15,11 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 3 }
 
   def self.digest(_string)
-    cost = if ActiveModel::SecurePassword.min_cost
-             BCrypt::Engine::MIN_COST
-           else
-             BCrypt::Engine.cost
-           end
+    if ActiveModel::SecurePassword.min_cost
+      BCrypt::Engine::MIN_COST
+    else
+      BCrypt::Engine.cost
+    end
   end
 
   def self.new_token
